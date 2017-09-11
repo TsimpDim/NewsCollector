@@ -14,12 +14,17 @@ app.use(express.static(__dirname +'/public'));
 app.get('/' , function(request,response){
     response.render('home');
 });
-app.get('/redir' , function(request,response){
-    response.send('You should have been redirected to :'+ request.query['choice'])    
+
+app.get('/sources' , function(request,response){
+    response.render('sources');
 });
 
-app.get('/about' , function(request,response){
-    response.render('about');
+app.get('/all%20articles' , function(request,response){
+    response.render('articles');
+});
+app.get('/redir' , function(request,response){
+    response.redirect('/'+request.query['choice'])
+    console.log('You should have been redirected to :'+ request.query['choice'])    
 });
 
 
