@@ -21,17 +21,20 @@ app.get('/' , function(request,response){
 });
 
 app.get('/sources' , function(request,response){
-    response.render('sources');
 
     //Get sources
     newsapi.sources({
         language: 'en'
       }).then(sourcesResponse => {
-        let sources = JSON.parse(JSON.stringify(sourcesResponse));
-        
-        for(let i = 0; i < sources['sources'].length; i++){
-            console.log(sources['sources'][i]['name']);
+        let sources_list = [];
+
+        for(let i = 0; i < sourcesResponse['sources'].length; i++){
+            //console.log(sources['sources'][i]['name']);
+            sources_list[i] = sourcesResponse['sources'][i]['name'];
         }
+        
+        response.render('sources',{'sources_list':sources_list});
+        
     });
 
 
@@ -51,6 +54,32 @@ app.get('/all%20articles' , function(request,response){
       });
 
 });
+
+app.get('/articles' , function(request,response){
+    let source_list = request.query['sources'].split(',');
+    let article_json;
+
+    if(source_list == 'none'){
+        response.redirect('/Sources');
+    }else{
+        
+        //Get articles from sources
+        source_list.forEach(function(source,i) {
+            let fixed_format_source =  source.replace(/[()]/g,''); //First delete the parentheses
+            fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
+            console.log(source+'--->'+fixed_format_source+'\n');
+
+            newsapi.articles({
+                source:fixed_format_source,
+                sortBy:'top'
+            }).then(articlesResponse => {
+                console.log(articlesResponse['articles'][0]['title']);
+            });
+        }, this);
+
+    }
+});
+
 app.get('/redir' , function(request,response){
     response.redirect('/'+request.query['choice'])
     console.log('You should have been redirected to :'+ request.query['choice'])    

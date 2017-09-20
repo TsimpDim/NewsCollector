@@ -1,0 +1,111 @@
+body{
+    background-image: url("http://i.imgur.com/GYZHhEc.jpg"); /*http://amxxcs.ru/wp/cXGOqLk.jpg*/
+    background-size: contain;
+    /*<!!!> To  Change*/
+}
+
+#header{
+    width: 100%;
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    font-family: 'Arvo',cursive;
+    font-size:5em;
+    text-align: left;
+
+    background: #4F618F;
+    color: #323232;
+
+    
+}
+
+
+
+
+#src_list{
+    margin-top: 10em;
+    margin-bottom: 3em;
+
+    list-style: none;
+
+    -moz-column-count: 4;
+    -moz-column-gap: 20px;
+    -webkit-column-count: 4;
+    -webkit-column-gap: 20px;
+    column-count: 4;
+    column-gap: 20px;
+}
+
+
+#viewArt_cont{
+    display: table;
+    margin: 0 auto;
+    padding-bottom: 10em;
+}
+#viewArt{
+    background-color:transparent;
+    border:solid 1px #405079;
+  
+
+    color: #405079;
+
+    width:10em;
+    height:3em;
+
+    font-size:30px;
+    font-weight:bold; 
+
+    transition: background-color .2s ease-in,color .2s ease-in-out;
+
+    margin:0 14em 0;
+    display:inline-block;
+}
+
+#viewArt:hover{
+    cursor:pointer;
+
+    background-color:#405079;
+    color: #000; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0.5);
+}
+
+#viewArt:focus{
+    outline:none;
+}
+
+.src_btn{
+    
+    background-color:transparent;
+    border:none;
+    border-bottom:2px solid transparent;
+
+    font-size:2em;
+    font-family: 'Poiret One', cursive;
+    letter-spacing:3px;
+    text-align: left;
+
+    color:rgb(255, 255, 255);
+
+    max-width:15em;
+    margin-left:auto;
+}
+
+.src_btn:hover{
+    cursor:pointer;
+    border-bottom:2px solid #4F618F;
+
+}
+
+
+.src_btn:focus {
+    outline:none;
+}
+
+.src_btn:active{
+    color: #FFE3AA;
+}
+
+

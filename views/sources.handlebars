@@ -1,13 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        {{>head}}
         <title>News Collector</title>
         <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" type="text/css" href="css/sources.css">
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Arvo" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="js/sources.js"></script>
     </head>
-<body>
-    <h3>This is the sources page</h3>
 
-{{>footer}}
+    <body>
+        <h3 style="color:white">This is the sources page</h3>
 
-</body>
+        <ul id="src_list">
+            {{#each sources_list}}
+            <li>
+                <button class="src_btn">
+                {{this}}
+                </button>
+            </li>
+            {{/each}}
+        </ul>
+
+
+        <form action="/articles" method="GET">
+            <div id="viewArt_cont">
+                <button id="viewArt" type="submit" value="none" name="sources">View articles from selected sources</button>
+            </div>
+        </form>
+        
+
+    {{>footer}}
+
+
+    </body>
+</html>
