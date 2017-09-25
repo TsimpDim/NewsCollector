@@ -6,7 +6,15 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
     </head>
 <body>
-    <h3>This is the articles page</h3>
+
+
+
+{{#each this}}
+<div class="container">
+    <div class="titlecont">{{source}}</div>
+</div>
+{{/each}}
+
 
 {{>footer}}
 

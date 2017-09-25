@@ -57,7 +57,9 @@ app.get('/all%20articles' , function(request,response){
 
 app.get('/articles' , function(request,response){
     let source_list = request.query['sources'].split(',');
-    let article_json;
+    let article_json = [];
+    let promises = [];
+    
 
     if(source_list == 'none'){
         response.redirect('/Sources');
@@ -65,17 +67,20 @@ app.get('/articles' , function(request,response){
         
         //Get articles from sources
         source_list.forEach(function(source,i) {
-            let fixed_format_source =  source.replace(/[()]/g,''); //First delete the parentheses
+            let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
             fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
             console.log(source+'--->'+fixed_format_source+'\n');
-
-            newsapi.articles({
+            
+            promises[i] = newsapi.articles({
                 source:fixed_format_source,
                 sortBy:'top'
-            }).then(articlesResponse => {
-                console.log(articlesResponse['articles'][0]['title']);
             });
-        }, this);
+        });
+
+        Promise.all(promises).then(values => {
+            response.render('articles',values);
+        });
+     
 
     }
 });
