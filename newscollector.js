@@ -1,5 +1,26 @@
 let express = require('express')
-let handlebars = require('express-handlebars').create({defaultLayout:'main'});
+let handlebars = require('express-handlebars').create(
+    {
+        defaultLayout:'main',
+        helpers: {
+            title: function(object){
+                if(object == undefined){
+                    return "<ARTICLE NOT FOUND>";
+                }
+                
+                return object[0]['title'];
+            },
+            image: function(object){
+                if(object == undefined){
+                    return "";
+                }
+                
+                return object[0]['urlToImage'];
+            }
+        
+        }
+    }
+);
 let request = require('request');
 let NewsAPI = require('newsapi');
 
@@ -15,9 +36,8 @@ app.use(express.static(__dirname +'/public'));
 
 
 
-
 app.get('/' , function(request,response){
-    response.render('home');
+    response.redirect('/Sources');
 });
 
 app.get('/sources' , function(request,response){
@@ -29,7 +49,6 @@ app.get('/sources' , function(request,response){
         let sources_list = [];
 
         for(let i = 0; i < sourcesResponse['sources'].length; i++){
-            //console.log(sources['sources'][i]['name']);
             sources_list[i] = sourcesResponse['sources'][i]['name'];
         }
         
@@ -57,7 +76,6 @@ app.get('/all%20articles' , function(request,response){
 
 app.get('/articles' , function(request,response){
     let source_list = request.query['sources'].split(',');
-    let article_json = [];
     let promises = [];
     
 
@@ -69,16 +87,16 @@ app.get('/articles' , function(request,response){
         source_list.forEach(function(source,i) {
             let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
             fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
-            console.log(source+'--->'+fixed_format_source+'\n');
             
             promises[i] = newsapi.articles({
-                source:fixed_format_source,
-                sortBy:'top'
+                source: fixed_format_source,
+                sortBy: 'top'
             });
         });
 
         Promise.all(promises).then(values => {
-            response.render('articles',values);
+            //console.log(values[0]);
+            response.render('articles',{'articles':values});
         });
      
 

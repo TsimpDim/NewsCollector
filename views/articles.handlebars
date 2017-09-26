@@ -4,14 +4,20 @@
         {{>head}}
         <title>News Collector</title>
         <link rel="stylesheet" type="text/css" href="css/footer.css">
+        <link rel="stylesheet" type="text/css" href="css/articles.css">
+        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
     </head>
 <body>
 
 
+<div id="header">Articles</div>
 
-{{#each this}}
+{{#each articles}}
 <div class="container">
-    <div class="titlecont">{{source}}</div>
+    <div class="titlecont">{{title articles}}</div>
+    <div class="imagecont" width="637" height="512">
+        <img class="image"src="{{image articles}}" alt="{{title articles}}"  width="512" height="512"/>
+    </div>
 </div>
 {{/each}}
 

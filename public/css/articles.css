@@ -1,0 +1,51 @@
+body{
+    background-image: url("http://i.imgur.com/GYZHhEc.jpg"); /*http://amxxcs.ru/wp/cXGOqLk.jpg*/
+    background-size: contain;
+    /*<!!!> To  Change*/
+    margin: 0;
+    padding: 0;
+}
+
+
+#header{
+    width: 100%;
+    height: auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    font-family: 'Arvo',cursive;
+    font-size:5em;
+    text-align: left;
+
+    background: #4F618F;
+    color: #323232;
+
+}
+
+.container{
+    margin: 10em 0;
+    padding: 0;
+
+}
+
+.titlecont{
+    font-family: "Poiret One",cursive;
+    font-size: 30px;
+
+    text-align: center;
+
+    background-color: white;
+
+    
+    width: 100%;
+    height: auto;
+
+    position: absolute;
+    left: 0;
+}
+
+.image{
+    object-fit: cover;
+}

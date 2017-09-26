@@ -8,3 +8,31 @@ footer div{
     margin: 0 auto;
 }
 
+.footerBut{
+    background-color:transparent;
+    border:solid 1px #405079;
+  
+
+    color: #405079;
+
+    width:10em;
+    height:3em;
+
+    font-size:30px;
+    font-weight:bold; 
+
+    transition: background-color .2s ease-in,color .2s ease-in-out;
+
+}
+
+.footerBut:hover{
+    cursor:pointer;
+
+    background-color:#405079;
+    color: #000; /* Fallback for older browsers */
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.footerBut:focus{
+    outline:none;
+}
