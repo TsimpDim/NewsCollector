@@ -16,8 +16,35 @@ let handlebars = require('express-handlebars').create(
                 }
                 
                 return object[0]['urlToImage'];
+            },
+            desc: function(object){
+                if(object == undefined || object[0]['description'] == null){
+                    return "";
+                }
+
+                return object[0]['description'];
+            },
+            author: function(object){
+                if(object == undefined || object[0]['author'] == null){
+                    return "";
+                }
+
+                return object[0]['author'];
+            },
+            link: function(object){
+                if(object == undefined){
+                    return "";
+                }
+
+                return object[0]['url'];
+            },
+            date: function(object){
+                if(object == undefined || object[0]['publishedAt'] == null){
+                    return "";
+                }
+
+                return object[0]['publishedAt'].replace(/\T(.*)/g,'');
             }
-        
         }
     }
 );
@@ -95,7 +122,6 @@ app.get('/articles' , function(request,response){
         });
 
         Promise.all(promises).then(values => {
-            //console.log(values[0]);
             response.render('articles',{'articles':values});
         });
      
@@ -105,7 +131,6 @@ app.get('/articles' , function(request,response){
 
 app.get('/redir' , function(request,response){
     response.redirect('/'+request.query['choice'])
-    console.log('You should have been redirected to :'+ request.query['choice'])    
 });
 
 

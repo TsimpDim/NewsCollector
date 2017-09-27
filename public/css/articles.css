@@ -2,10 +2,9 @@ body{
     background-image: url("http://i.imgur.com/GYZHhEc.jpg"); /*http://amxxcs.ru/wp/cXGOqLk.jpg*/
     background-size: contain;
     /*<!!!> To  Change*/
-    margin: 0;
     padding: 0;
+    margin: 0;
 }
-
 
 #header{
     width: 100%;
@@ -21,13 +20,11 @@ body{
 
     background: #4F618F;
     color: #323232;
-
 }
 
 .container{
     margin: 10em 0;
     padding: 0;
-
 }
 
 .titlecont{
@@ -47,5 +44,42 @@ body{
 }
 
 .image{
-    object-fit: cover;
+    object-fit: contain;
+    float: left;
+
+    width: 80%;
+    height: 80%;
+
+}
+
+table{
+    width: 100%;
+    padding-top: 2em;
+
+    border-spacing: 0;
+}
+td{
+    width: 50%;
+    padding: 0;
+}
+
+.desc{
+    color: white;
+
+    text-align: left;
+    font-weight: normal;
+    font-size: 30px;
+
+    font-family: 'Playfair Display', serif;
+}
+
+.link{
+    text-decoration: none;
+}
+
+.author{
+    color: white;
+
+    font-style: italic;
+    font-weight: normal;
 }

@@ -5,7 +5,7 @@
         <title>News Collector</title>
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" type="text/css" href="css/articles.css">
-        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">    
     </head>
 <body>
 
@@ -15,13 +15,30 @@
 {{#each articles}}
 <div class="container">
     <div class="titlecont">{{title articles}}</div>
-    <div class="imagecont" width="637" height="512">
-        <img class="image"src="{{image articles}}" alt="{{title articles}}"  width="512" height="512"/>
-    </div>
+
+    <table>
+        <tr>
+            <td>
+                <div class="imagecont" width="673" height="512">
+                    <a href="{{image articles}}">
+                        <img class="image" href="{{image articles}}" src="{{image articles}}" alt=""/>
+                    </a>
+                </div>
+            </td>
+            <td>
+                <div class="info cont">
+                    <a class="link" href="{{link articles}}">
+                        <p class="desc">{{desc articles}}</p>
+                        <h3 class="author">{{author articles}} {{date articles}}</h3>
+                    </a>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 {{/each}}
 
 
 {{>footer}}
-
 </body>
+</html>
