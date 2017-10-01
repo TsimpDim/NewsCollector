@@ -3,47 +3,54 @@ let handlebars = require('express-handlebars').create(
     {
         defaultLayout:'main',
         helpers: {
-            title: function(object){
+            title: function(object,n){
                 if(object == undefined){
                     return "<ARTICLE NOT FOUND>";
                 }
-                
-                return object[0]['title'];
+    
+
+                return object[n]['title'];
             },
-            image: function(object){
+            image: function(object,n){
                 if(object == undefined){
                     return "";
                 }
                 
-                return object[0]['urlToImage'];
+                return object[n]['urlToImage'];
             },
-            desc: function(object){
-                if(object == undefined || object[0]['description'] == null){
+            desc: function(object,n){
+                if(object == undefined || object[n]['description'] == null){
                     return "";
                 }
 
-                return object[0]['description'];
+                return object[n]['description'];
             },
-            author: function(object){
-                if(object == undefined || object[0]['author'] == null){
+            author: function(object,n){
+                if(object == undefined || object[n]['author'] == null){
                     return "";
                 }
 
-                return object[0]['author'];
+                return object[n]['author'];
             },
-            link: function(object){
+            link: function(object,n){
                 if(object == undefined){
                     return "";
                 }
 
-                return object[0]['url'];
+                return object[n]['url'];
             },
-            date: function(object){
-                if(object == undefined || object[0]['publishedAt'] == null){
+            date: function(object,n){
+                if(object == undefined || object[n]['publishedAt'] == null){
                     return "";
                 }
 
-                return object[0]['publishedAt'].replace(/\T(.*)/g,'');
+                return object[n]['publishedAt'].replace(/\T(.*)/g,'');
+            },
+            times: function(n,block){
+                let accum = '';
+                for(let i = 0; i < n; ++i)
+                    accum += block.fn(i);
+                return accum;
             }
         }
     }
@@ -122,7 +129,14 @@ app.get('/articles' , function(request,response){
         });
 
         Promise.all(promises).then(values => {
-            response.render('articles',{'articles':values});
+            let amount = [];
+            values[0]['articles'].forEach(function(art,i){
+                amount[i-1] = (i-1).toString();
+            });
+            
+            response.render('articles',{'articles':values, 'amount': amount});
+        }).catch(function(err){
+            console.log(err);
         });
      
 

@@ -11,31 +11,32 @@
 
 
 <div id="header">Articles</div>
+{{#each amount}}
+    {{#each ../articles}}
+        <div class="container">
+            <div class="titlecont">{{title articles ../this}}</div>
 
-{{#each articles}}
-<div class="container">
-    <div class="titlecont">{{title articles}}</div>
-
-    <table>
-        <tr>
-            <td>
-                <div class="imagecont" width="673" height="512">
-                    <a href="{{image articles}}">
-                        <img class="image" href="{{image articles}}" src="{{image articles}}" alt=""/>
-                    </a>
-                </div>
-            </td>
-            <td>
-                <div class="info cont">
-                    <a class="link" href="{{link articles}}">
-                        <p class="desc">{{desc articles}}</p>
-                        <h3 class="author">{{author articles}} {{date articles}}</h3>
-                    </a>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+            <table>
+                <tr>
+                    <td>
+                        <div class="imagecont" width="673" height="512">
+                            <a href="{{image articles ../this}}">
+                                <img class="image" href="{{image articles ../this}}" src="{{image articles ../this}}" alt=""/>
+                            </a>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="info cont">
+                            <a class="link" href="{{link articles ../this}}">
+                                <p class="desc">{{desc articles ../this}}</p>
+                                <h3 class="author">{{author articles ../this}} {{date articles ../this}}</h3>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    {{/each}}
 {{/each}}
 
 
