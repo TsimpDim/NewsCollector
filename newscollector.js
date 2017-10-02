@@ -4,7 +4,7 @@ let handlebars = require('express-handlebars').create(
         defaultLayout:'main',
         helpers: {
             title: function(object,n){
-                if(object == undefined){
+                if(object == undefined || object[n] == undefined){
                     return "<ARTICLE NOT FOUND>";
                 }
     
@@ -12,35 +12,35 @@ let handlebars = require('express-handlebars').create(
                 return object[n]['title'];
             },
             image: function(object,n){
-                if(object == undefined){
+                if(object == undefined || object[n] == undefined){
                     return "";
                 }
                 
                 return object[n]['urlToImage'];
             },
             desc: function(object,n){
-                if(object == undefined || object[n]['description'] == null){
+                if(object == undefined || object[n] == undefined || object[n]['description'] == null){
                     return "";
                 }
 
                 return object[n]['description'];
             },
             author: function(object,n){
-                if(object == undefined || object[n]['author'] == null){
+                if(object == undefined || object[n] == undefined || object[n]['author'] == null){
                     return "";
                 }
 
                 return object[n]['author'];
             },
             link: function(object,n){
-                if(object == undefined){
+                if(object == undefined || object[n] == undefined){
                     return "";
                 }
 
                 return object[n]['url'];
             },
             date: function(object,n){
-                if(object == undefined || object[n]['publishedAt'] == null){
+                if(object == undefined || object[n] == undefined || object[n]['publishedAt'] == null){
                     return "";
                 }
 
@@ -129,12 +129,21 @@ app.get('/articles' , function(request,response){
         });
 
         Promise.all(promises).then(values => {
-            let amount = [];
-            values[0]['articles'].forEach(function(art,i){
-                amount[i-1] = (i-1).toString();
+            let min = 15; //No more than 15 articles per source
+
+            values.forEach(function(art,i){//Find the source with the lowest amount of articles
+                let curr = values[i]['articles'];
+                if(curr.length < min){
+                    min = curr.length;
+                }
             });
-            
-            response.render('articles',{'articles':values, 'amount': amount});
+
+            let amount = []; // let amount = minObj.map((article) => article['title']); -- Gives an object with the titles, not an array?
+            for(let i = 0; i < min; i++){
+                amount.push(i.toString());
+            }
+
+            response.render('articles',{'articles':values, 'amount': amount});//Use the smallest amount of articles as a baseline for all the other sources
         }).catch(function(err){
             console.log(err);
         });
