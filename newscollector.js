@@ -133,6 +133,9 @@ app.get('/articles' , function(request,response){
 
             values.forEach(function(art,i){//Find the source with the lowest amount of articles
                 let curr = values[i]['articles'];
+                
+                if(curr == undefined) return;
+
                 if(curr.length < min){
                     min = curr.length;
                 }

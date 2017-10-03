@@ -1,16 +1,16 @@
 body{
-    background-image: url("http://i.imgur.com/GYZHhEc.jpg"); /*http://amxxcs.ru/wp/cXGOqLk.jpg*/
-    background-size: contain;
-    /*<!!!> To  Change*/
+    background-color: #FFFFFF;
     padding: 0;
     margin: 0;
+
+    overflow-x: hidden;
 }
 
 #header{
     width: 100%;
     height: auto;
 
-    position: absolute;
+    position: static;
     top: 0;
     left: 0;
 
@@ -22,18 +22,22 @@ body{
     color: #323232;
 }
 
-.container{
-    margin: 10em 0;
+.art_container{
+    /* margin: 10em 0; */
+    margin: 0;
     padding: 0;
 }
 
 .titlecont{
-    font-family: "Poiret One",cursive;
+    font-family: 'Playfair Display', serif;
     font-size: 30px;
+    font-weight: normal;
+
+    color: #FFFFFF;
 
     text-align: center;
 
-    background-color: white;
+    background-color: #4F618F;
 
     
     width: 100%;
@@ -49,7 +53,6 @@ body{
 
     width: 80%;
     height: 80%;
-
 }
 
 table{
@@ -61,6 +64,8 @@ table{
 td{
     width: 50%;
     padding: 0;
+
+    background-color: #323232;
 }
 
 .desc{
