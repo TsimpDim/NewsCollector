@@ -20,7 +20,7 @@ let handlebars = require('express-handlebars').create(
             },
             desc: function(object,n){
                 if(object == undefined || object[n] == undefined || object[n]['description'] == null){
-                    return "";
+                    return "No description available";
                 }
 
                 return object[n]['description'];
