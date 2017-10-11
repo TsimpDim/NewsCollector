@@ -68,7 +68,9 @@ app.set('view engine','handlebars');
 app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname +'/public'));
 
-
+app.listen(app.get('port'),function(){
+    console.log("Project is running on http://localhost:"+ app.get('port'));
+});
 
 app.get('/' , function(request,response){
     response.redirect('/Sources');
@@ -191,18 +193,34 @@ app.get('/articles' , function(request,response){
     }
 });
 
-
-
-
-
-
-
 app.get('/redir' , function(request,response){
     response.redirect('/'+request.query['choice'])
 });
 
-
-
-app.listen(app.get('port'),function(){
-    console.log("Project is running on http://localhost:"+ app.get('port'));
+app.use(function(req, res, next){
+    res.status(404);
+  
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('error', {ErrorCode:404,ErrorDesc:"The page you requested was not found...oops" });
+      return;
+    }
+  
+  
+    // default to plain-text. send()
+    res.type('txt').send('404 Not Found');
 });
+
+app.use(function(req, res, next){
+    res.status(500);
+  
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('error', {ErrorCode:500,ErrorDesc:"There was an Internal Server Error...sorry :(" });
+      return;
+    }
+  
+    // default to plain-text. send()
+    res.type('txt').send('500 Internal Server Error');
+});
+  

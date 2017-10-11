@@ -1,0 +1,23 @@
+body{
+    background-color: #323232;
+
+    margin: 0;
+    padding: 0;
+}
+
+span{
+    font-weight: bold;
+    font-size: 100px;
+
+    text-decoration: underline;
+
+    color: #4F618F;
+
+}
+
+h3{
+    text-align: center;
+    font-size: 30px;
+
+    color: white;
+}
