@@ -12,7 +12,19 @@ ul li{
     margin-right: 2em;
 }
 
-footer div{
+#ApiCredit{
+    color: rgb(56, 56, 56);
+
+    margin: 0;
+    display: inline;
+}
+
+#ApiCredit a{
+    color: inherit;
+    text-decoration: none;
+}
+
+#footer_cont{
     display: table;
     margin: 0 auto;  
 }
