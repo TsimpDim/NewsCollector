@@ -213,7 +213,6 @@ app.get('/redir' , function(request,response){
 
   if(redirectFound == false){ //If user has not been redirected to a whitelisted path, redirect to home directory
     console.log("DEBUG: Redirect path doesn't match the ones defined in the whitelist. Redirecting home..."); //Print to console
-    console.log(request.query['choice']);
     response.redirect('/');
     response.end();
   }
