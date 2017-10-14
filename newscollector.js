@@ -198,20 +198,20 @@ app.get('/redir' , function(request,response){
   //Fix the Open Redirect Vulnerability by sanitizing the request.query['choice'] variable.
   //Use whitelist approach to define which paths are available for redirection to.
 
-  var redirectWhitelist = ["Sources", "all_articles"];//The only paths the application can redirect to.
-  var redirectFound = false; //Declare a boolean variable to note whether the user has been redirected or not.
+  let redirect_whitelist = ["Sources", "all_articles"];//The only paths the application can redirect to.
+  let redirect_found = false; //Declare a boolean variable to note whether the user has been redirected or not.
 
-  for(var entry in redirectWhitelist){
-    if(request.query['choice']==redirectWhitelist[entry]){ //Check if 'choice' is indeed in our whitelist of allowed paths.
-      response.redirect(redirectWhitelist[entry]);
+  for(let entry in redirect_whitelist){
+    if(request.query['choice'] == redirect_whitelist[entry]){ //Check if 'choice' is indeed in our whitelist of allowed paths.
+      response.redirect(redirect_whitelist[entry]);
       response.end();
-      redirectFound=true; //Set the variable to true. User has been redirected successfully.
+      redirect_found=true; //Set the variable to true. User has been redirected successfully.
       break;
     }
   }
 
 
-  if(redirectFound == false){ //If user has not been redirected to a whitelisted path, redirect to home directory
+  if(redirect_found == false){ //If user has not been redirected to a whitelisted path, redirect to home directory
     console.log("DEBUG: Redirect path doesn't match the ones defined in the whitelist. Redirecting home..."); //Print to console
     response.redirect('/');
     response.end();
