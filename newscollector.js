@@ -1,4 +1,4 @@
-let express = require('express')
+let express = require('express');
 let handlebars = require('express-handlebars').create(
     {
         defaultLayout:'main',
@@ -48,14 +48,15 @@ let handlebars = require('express-handlebars').create(
             },
             times: function(n,block){
                 let accum = '';
-                for(let i = 0; i < n; ++i)
+                for(let i = 0; i < n; ++i){
                     accum += block.fn(i);
+                }
                 return accum;
             }
         }
     }
 );
-let request = require('request');
+
 let NewsAPI = require('newsapi');
 
 let app = express();
@@ -91,10 +92,6 @@ app.get('/sources' , function(request,response){
         response.render('sources',{'sources_list':sources_list});
 
     });
-
-
-
-
 });
 
 app.get('/all_articles' , function(request,response){ //substituting space with underscore in order to make redirection more efficient.
@@ -127,7 +124,7 @@ app.get('/all_articles' , function(request,response){ //substituting space with 
             values.forEach(function(art,i){//Find the source with the lowest amount of articles
                 let curr = values[i]['articles'];
 
-                if(curr == undefined) return;
+                if(curr == undefined) {return;}
 
                 if(curr.length < min){
                     min = curr.length;
@@ -172,7 +169,7 @@ app.get('/articles' , function(request,response){
             values.forEach(function(art,i){//Find the source with the lowest amount of articles
                 let curr = values[i]['articles'];
 
-                if(curr == undefined) return;
+                if(curr == undefined) {return;}
 
                 if(curr.length < min){
                     min = curr.length;
@@ -205,7 +202,7 @@ app.get('/redir' , function(request,response){
     if(request.query['choice'] == redirect_whitelist[entry]){ //Check if 'choice' is indeed in our whitelist of allowed paths.
       response.redirect(redirect_whitelist[entry]);
       response.end();
-      redirect_found=true; //Set the variable to true. User has been redirected successfully.
+      redirect_found = true; //Set the variable to true. User has been redirected successfully.
       break;
     }
   }
@@ -218,43 +215,43 @@ app.get('/redir' , function(request,response){
   }
 });
 
-app.use(function(req, res, next){
+app.use(function(req, res){
     res.status(404);
 
-    // respond with html page
+    //Respond with html page
     if (req.accepts('html')) {
       res.render('error', {ErrorCode:404,ErrorDesc:"The page you requested was not found...oops" });
       return;
     }
 
 
-    // default to plain-text. send()
+    //Default to plain-text. send()
     res.type('txt').send('404 Not Found');
 });
 
-app.use(function(req, res, next){
+app.use(function(req, res){
     res.status(403);
 
-    // respond with html page
+    //Respond with html page
     if (req.accepts('html')) {
-      res.render('error', {ErrorCode:403,ErrorDesc:"Forbidden" });
+      res.render('error', {ErrorCode:403,ErrorDesc:"Forbidden." });
       return;
     }
 
 
-    // default to plain-text. send()
+    //Default to plain-text. send()
     res.type('txt').send('403 Forbidden');
 });
 
-app.use(function(req, res, next){
+app.use(function(req, res){
     res.status(500);
 
-    // respond with html page
+    //Respond with html page
     if (req.accepts('html')) {
       res.render('error', {ErrorCode:500,ErrorDesc:"There was an Internal Server Error...sorry :(" });
       return;
     }
 
-    // default to plain-text. send()
+    //Default to plain-text. send()
     res.type('txt').send('500 Internal Server Error');
 });

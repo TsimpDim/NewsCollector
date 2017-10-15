@@ -1,0 +1,8 @@
+{
+    "esversion":6,
+    "curly": true,
+    "latedef": true,
+    "unused": true,
+    "eqnull": true,
+    "sub":true
+}
