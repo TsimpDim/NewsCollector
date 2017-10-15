@@ -7,7 +7,7 @@ let handlebars = require('express-handlebars').create(
                 if(object == undefined || object[n] == undefined){
                     return "<ARTICLE NOT FOUND>";
                 }
-    
+
 
                 return object[n]['title'];
             },
@@ -15,7 +15,7 @@ let handlebars = require('express-handlebars').create(
                 if(object == undefined || object[n] == undefined){
                     return "";
                 }
-                
+
                 return object[n]['urlToImage'];
             },
             desc: function(object,n){
@@ -87,9 +87,9 @@ app.get('/sources' , function(request,response){
         for(let i = 0; i < sourcesResponse['sources'].length; i++){
             sources_list[i] = sourcesResponse['sources'][i]['name'];
         }
-        
+
         response.render('sources',{'sources_list':sources_list});
-        
+
     });
 
 
@@ -97,8 +97,8 @@ app.get('/sources' , function(request,response){
 
 });
 
-app.get('/all%20articles' , function(request,response){
-    
+app.get('/all_articles' , function(request,response){ //substituting space with underscore in order to make redirection more efficient.
+
     //Get sources
     newsapi.sources({
         language: 'en'
@@ -114,7 +114,7 @@ app.get('/all%20articles' , function(request,response){
         sources_list.forEach(function(source,i) {
             let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
             fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
-            
+
             promises[i] = newsapi.articles({
                 source: fixed_format_source,
                 sortBy: 'top'
@@ -126,7 +126,7 @@ app.get('/all%20articles' , function(request,response){
 
             values.forEach(function(art,i){//Find the source with the lowest amount of articles
                 let curr = values[i]['articles'];
-                
+
                 if(curr == undefined) return;
 
                 if(curr.length < min){
@@ -148,18 +148,18 @@ app.get('/all%20articles' , function(request,response){
 
 app.get('/articles' , function(request,response){
     let source_list = request.query['sources'].split(',');
-    
+
 
     if(source_list == 'none'){
         response.redirect('/Sources');
     }else{
         let promises = [];
-        
+
         //Get articles from sources
         source_list.forEach(function(source,i) {
             let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
             fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
-            
+
             promises[i] = newsapi.articles({
                 source: fixed_format_source,
                 sortBy: 'top'
@@ -171,7 +171,7 @@ app.get('/articles' , function(request,response){
 
             values.forEach(function(art,i){//Find the source with the lowest amount of articles
                 let curr = values[i]['articles'];
-                
+
                 if(curr == undefined) return;
 
                 if(curr.length < min){
@@ -188,39 +188,73 @@ app.get('/articles' , function(request,response){
         }).catch(function(err){
             console.log(err);
         });
-     
+
 
     }
 });
 
 app.get('/redir' , function(request,response){
-    response.redirect('/'+request.query['choice'])
+
+  //Fix the Open Redirect Vulnerability by sanitizing the request.query['choice'] variable.
+  //Use whitelist approach to define which paths are available for redirection to.
+
+  let redirect_whitelist = ["Sources", "all_articles"];//The only paths the application can redirect to.
+  let redirect_found = false; //Declare a boolean variable to note whether the user has been redirected or not.
+
+  for(let entry in redirect_whitelist){
+    if(request.query['choice'] == redirect_whitelist[entry]){ //Check if 'choice' is indeed in our whitelist of allowed paths.
+      response.redirect(redirect_whitelist[entry]);
+      response.end();
+      redirect_found=true; //Set the variable to true. User has been redirected successfully.
+      break;
+    }
+  }
+
+
+  if(redirect_found == false){ //If user has not been redirected to a whitelisted path, redirect to home directory
+    console.log("DEBUG: Redirect path doesn't match the ones defined in the whitelist. Redirecting home..."); //Print to console
+    response.redirect('/');
+    response.end();
+  }
 });
 
 app.use(function(req, res, next){
     res.status(404);
-  
+
     // respond with html page
     if (req.accepts('html')) {
       res.render('error', {ErrorCode:404,ErrorDesc:"The page you requested was not found...oops" });
       return;
     }
-  
-  
+
+
     // default to plain-text. send()
     res.type('txt').send('404 Not Found');
 });
 
 app.use(function(req, res, next){
+    res.status(403);
+
+    // respond with html page
+    if (req.accepts('html')) {
+      res.render('error', {ErrorCode:403,ErrorDesc:"Forbidden" });
+      return;
+    }
+
+
+    // default to plain-text. send()
+    res.type('txt').send('403 Forbidden');
+});
+
+app.use(function(req, res, next){
     res.status(500);
-  
+
     // respond with html page
     if (req.accepts('html')) {
       res.render('error', {ErrorCode:500,ErrorDesc:"There was an Internal Server Error...sorry :(" });
       return;
     }
-  
+
     // default to plain-text. send()
     res.type('txt').send('500 Internal Server Error');
 });
-  
