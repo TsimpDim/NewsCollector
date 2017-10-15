@@ -10,3 +10,5 @@ To run the application locally or customize it:
   2. Run `npm install` to create the *node_modules* folder
   3. Run `npm start` or `node newscollector.js` to start the server. A relevant message should appear on the command line
   4. Open your browser and go to *http://localhost:3000*
+
+  To enable JSHint install it using `npm install jshint` or for a globall install use `npm install -g jshint`
