@@ -1,5 +1,5 @@
 body{
-    background-color: #FFFFFF;
+    background-color: #323232;
     padding: 0;
     margin: 0;
 
@@ -15,52 +15,55 @@ body{
     left: 0;
 
     font-family: 'Arvo',cursive;
-    font-size:5em;
+    font-size:3em;
+    
     text-align: left;
 
     background: #4F618F;
-    color: #323232;
+    color: #323232;  
 }
 
 .art_container{
-    /* margin: 10em 0; */
     margin: 0;
     padding: 0;
 }
 
 .titlecont{
     font-family: 'Playfair Display', serif;
-    font-size: 30px;
+    font-size: 1.5em;
     font-weight: normal;
 
-    color: #FFFFFF;
-
+    word-wrap: break-word;    
     text-align: center;
 
+    color: #FFFFFF;
     background-color: #4F618F;
 
-    
     width: 100%;
     height: auto;
+    padding: 0;
+}
 
-    position: absolute;
-    left: 0;
+.imagecont{
+    width: 90%;
+    height: 50%;
 }
 
 .image{
     object-fit: contain;
     float: left;
 
-    width: 80%;
-    height: 80%;
+    width: 100%;
+    height: 100%;
 }
 
 table{
     width: 100%;
-    padding-top: 2em;
 
+    margin-top: -1px;
     border-spacing: 0;
 }
+
 td{
     width: 50%;
     padding: 0;
@@ -73,9 +76,10 @@ td{
 
     text-align: left;
     font-weight: normal;
-    font-size: 30px;
+    font-size: 2em;
 
     font-family: 'Playfair Display', serif;
+
 }
 
 .link{
@@ -87,4 +91,38 @@ td{
 
     font-style: italic;
     font-weight: normal;
+}
+
+
+
+@media only screen and (max-width: 1024px) {
+    /* Tablets and Desktop */
+    .titlecont{font-size: 1.2em}
+    .desc{font-size: 1em}
+    .author{font-size: .8em}
+}
+
+@media only screen and (max-width: 767px) {
+    /* Phones */
+    #header{font-size:1.5em}
+    .titlecont{font-size:.8em}
+    td{display: table-row}
+    .imagecont{width:100%}
+    .image{
+        width: 120%;
+        height: 80%;
+    }
+
+}
+
+@media only screen and (max-width: 320px) {
+    /* Phones */
+    #header{font-size:1.5em}
+    .titlecont{font-size:.8em}
+    td{display: table-row}
+    table{width:100%}
+    .imagecont{width:100%}
+    .image{object-fit: contain}
+
+
 }
