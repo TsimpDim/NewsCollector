@@ -181,7 +181,7 @@ app.get('/articles' , function(request,response){
                 amount.push(i.toString());
             }
 
-            response.render('articles',{'articles':values, 'amount': amount});//Use the smallest amount of articles as a baseline for all the other sources
+            response.render('articles2',{'articles':values, 'amount': amount});//Use the smallest amount of articles as a baseline for all the other sources
         }).catch(function(err){
             console.log(err);
         });
