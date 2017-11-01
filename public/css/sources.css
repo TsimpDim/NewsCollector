@@ -36,6 +36,8 @@ body{
     -webkit-column-gap: 20px;    
 }
 
+.btn_cont{display: inline-block}
+
 #viewArt_cont{padding-bottom: 1em;}
 #viewArt{
     background-color: transparent;

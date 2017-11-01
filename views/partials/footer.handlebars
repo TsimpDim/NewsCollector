@@ -1,20 +1,19 @@
 <footer>
     <div id="footer_cont">
-        <ul>
+        <ul id="footer_list">
 
-            <li>
-                <form action="/redir" method="GET">
-                    <button class="footerBut" type="submit" value="Sources" name="choice">Sources</button>
-                </form>
+            <li class="but_cont">
+                <a href="http://localhost:3000/Sources" style="text-decoration: none">
+                    <button class="footer_but">Sources</button>
+                </a>
             </li>
-
-            <li>
+            <li class="but_cont">
                 <form action="/redir" method="GET">
-                    <button class="footerBut" type="submit" value="all_articles" name="choice">All Articles</button>
+                    <button class="footer_but" type="submit" value="all_articles" name="choice">All Articles</button>
                 </form>
             </li>
 
         </ul>
     </div>
-    <h3 id="ApiCredit">Powered by : <a href="https://newsapi.org/">NewsAPI.org</a></h3>
+    <h3 id="api_credit">Powered by : <a href="https://newsapi.org/">NewsAPI.org</a></h3>
 </footer>
