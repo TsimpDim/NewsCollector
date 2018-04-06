@@ -11,33 +11,20 @@
 
 <div id="header">Articles</div>
 
-{{#each amount}}
-    {{#each ../articles}}
-        <div class="art_container">
-           <table>
-            <tr><th  class="titlecont" colspan="2">{{title articles ../this}}</th></tr>
-                <tr>
-                    <td>
-                        <div class="imagecont">
-                            <a href="{{image articles ../this}}">
-                                <img class="image" href="{{image articles ../this}}" src="{{image articles ../this}}" alt=""/>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="infocont">
-                            <a class="link" href="{{link articles ../this}}">
-                                <p class="desc">{{desc articles ../this}}</p>
-                                <h3 class="author">{{author articles ../this}} {{date articles ../this}}</h3>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div id="main_container">
+    {{#each amount}}
+        {{#each ../articles}}
+            <div class="art_container">
+                <h1 class="titlecont">{{title articles ../this}}</h1>
+                
+                <div class="info_container">
+                    <img class="image" href="{{image articles ../this}}" src="{{image articles ../this}}" alt=""/>
+                    <p class="desc">{{desc articles ../this}}</p>
+                </div>
+            </div>
+        {{/each}}
     {{/each}}
-{{/each}}
-
+</div>
 
 {{>footer}}
 </body>
