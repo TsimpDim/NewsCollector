@@ -6,21 +6,53 @@ body{
     overflow-x: hidden;
 }
 
+a{
+    text-decoration: none;
+}
+
 #header{
     width: 100%;
     height: auto;
 
-    position: static;
+    position: fixed;
     top: 0;
     left: 0;
 
     font-family: 'Arvo',cursive;
-    font-size:5em;
+    font-size:4em;
     
     text-align: left;
 
     background: #4F618F;
     color: #323232;  
+
+    transition: font-size linear .2s;
+
+    cursor: default;
+}
+
+#header:hover{
+    opacity:1;
+}
+
+#prim_head_link{
+    color:#FFE3AA;
+    margin-left: .2em;
+}
+
+#prim_head_link:hover{
+    cursor: pointer;
+}
+
+#sec_head_link{
+    color:white;
+    transition: color linear .15s;
+
+    font-size: .5em;
+}
+
+#sec_head_link:hover{
+    color:#FFE3AA;
 }
 
 #main_container{
@@ -44,7 +76,7 @@ body{
 }
 
 .art_container:first-child{
-    margin-top: 3em;
+    margin-top: 7em;
 }
 
 .titlecont{
@@ -93,10 +125,6 @@ body{
     padding-top: .5em;
     padding-bottom: .5em;
     padding-left: .5em;
-}
-
-a{
-    text-decoration: none;
 }
 
 .author{
