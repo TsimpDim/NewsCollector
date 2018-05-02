@@ -58,6 +58,7 @@ let handlebars = require('express-handlebars').create(
 );
 
 let NewsAPI = require('newsapi');
+let helperFunctions = require('./helperFunctions');
 
 let app = express();
 let newsapi = new NewsAPI('14e9cb737cc34f0aaa2265807c1be172');
@@ -74,73 +75,27 @@ app.listen(app.get('port'),function(){
 });
 
 app.get('/' , function(request,response){
-    response.redirect('/Sources');
+    response.redirect('/sources');
 });
 
 app.get('/sources' , function(request,response){
 
-    //Get sources
-    newsapi.sources({
-        language: 'en'
-      }).then(sourcesResponse => {
-        let sources_list = [];
-
-        for(let i = 0; i < sourcesResponse['sources'].length; i++){
-            sources_list[i] = sourcesResponse['sources'][i]['name'];
-        }
-
-        response.render('sources',{'sources_list':sources_list});
-
+    // Get sources
+    helperFunctions.getSources(newsapi, function(val){
+        response.render('sources',{'sources_list':val});
     });
+
 });
 
-app.get('/all_articles' , function(request,response){ //substituting space with underscore in order to make redirection more efficient.
+app.get('/allarticles' , function(request,response){
 
-    //Get sources
-    newsapi.sources({
-        language: 'en'
-      }).then(sourcesResponse => {
-        let sources_list = [];
+    // Get sources
+    sources_list = helperFunctions.getSources(newsapi);
 
-        for(let i = 0; i < sourcesResponse['sources'].length; i++){
-            sources_list[i] = sourcesResponse['sources'][i]['name'];
-        }
+    // Get articles from sources
+    res = helperFunctions.getArticles(newsapi);
 
-        //Get articles from sources
-        let promises = [];
-        sources_list.forEach(function(source,i) {
-            let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
-            fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
-
-            promises[i] = newsapi.articles({
-                source: fixed_format_source,
-                sortBy: 'top'
-            });
-        });
-
-        Promise.all(promises).then(values => {
-            let min = 15; //No more than 15 articles per source
-
-            values.forEach(function(art,i){//Find the source with the lowest amount of articles
-                let curr = values[i]['articles'];
-
-                if(curr == undefined) {return;}
-
-                if(curr.length < min){
-                    min = curr.length;
-                }
-            });
-
-            let amount = []; // let amount = minObj.map((article) => article['title']); -- Gives an object with the titles, not an array?
-            for(let i = 0; i < min; i++){
-                amount.push(i.toString());
-            }
-
-            response.render('articles',{'articles':values, 'amount': amount});//Use the smallest amount of articles as a baseline for all the other sources
-        }).catch(function(err){
-            console.log(err);
-        });
-    });
+    response.render('articles',{'articles':res.values, 'amount': res.amount});
 });
 
 app.get('/articles' , function(request,response){
@@ -150,42 +105,11 @@ app.get('/articles' , function(request,response){
     if(source_list == 'none'){
         response.redirect('/Sources');
     }else{
-        let promises = [];
 
-        //Get articles from sources
-        source_list.forEach(function(source,i) {
-            let fixed_format_source = source.replace(/[()]/g,''); //First delete the parentheses
-            fixed_format_source = fixed_format_source.replace(/\s+/g, '-').toLowerCase(); //Then format the string
-
-            promises[i] = newsapi.articles({
-                source: fixed_format_source,
-                sortBy: 'top'
-            });
+        // Get articles from sources
+        helperFunctions.getArticles(newsapi, function(val){
+            response.render('articles',{'articles':val.values, 'amount': val.amount});
         });
-
-        Promise.all(promises).then(values => {
-            let min = 15; //No more than 15 articles per source
-
-            values.forEach(function(art,i){//Find the source with the lowest amount of articles
-                let curr = values[i]['articles'];
-
-                if(curr == undefined) {return;}
-
-                if(curr.length < min){
-                    min = curr.length;
-                }
-            });
-
-            let amount = []; // let amount = minObj.map((article) => article['title']); -- Gives an object with the titles, not an array?
-            for(let i = 0; i < min; i++){
-                amount.push(i.toString());
-            }
-
-            response.render('articles',{'articles':values, 'amount': amount});//Use the smallest amount of articles as a baseline for all the other sources
-        }).catch(function(err){
-            console.log(err);
-        });
-
 
     }
 });
