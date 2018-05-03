@@ -51,7 +51,7 @@ exports.getArticles = function(newsapi, callback){
 
         values_ret = values;
         amount_ret = amount;
-        
+
         callback({
             "values" : values_ret,
             "amount" : amount_ret
