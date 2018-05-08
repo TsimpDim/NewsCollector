@@ -5,11 +5,11 @@
   "description": "collector of news",
   "main": "newscollector.js",
   "dependencies": {
-    "express": "^4.15.4",
+    "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "jshint": "^2.9.5",
     "newsapi": "^2.0.1",
-    "request": "^2.81.0"
+    "request": "^2.85.0"
   },
   "devDependencies": {},
   "scripts": {
