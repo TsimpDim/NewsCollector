@@ -5,39 +5,38 @@
         <link rel="stylesheet" type="text/css" href="css/footer.css">
         <link rel="stylesheet" type="text/css" href="css/articles.css">
         <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">    
+        <script src="js/articles.js"></script>
     </head>
 <body>
 
 
-<div id="header">Articles</div>
+<div id="header">
+    <a id="prim_head_link">Articles</a> |
+    <a href="/sources" id="sec_head_link">Sources</a>
+</div>
 
-{{#each amount}}
-    {{#each ../articles}}
-        <div class="art_container">
-           <table>
-            <tr><th  class="titlecont" colspan="2">{{title articles ../this}}</th></tr>
-                <tr>
-                    <td>
-                        <div class="imagecont">
-                            <a href="{{image articles ../this}}">
-                                <img class="image" href="{{image articles ../this}}" src="{{image articles ../this}}" alt=""/>
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="infocont">
-                            <a class="link" href="{{link articles ../this}}">
-                                <p class="desc">{{desc articles ../this}}</p>
-                                <h3 class="author">{{author articles ../this}} {{date articles ../this}}</h3>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-            </table>
-        </div>
+<div id="main_container">
+    {{#each amount}}
+        {{#each ../articles}}
+            <div class="art_container">
+                <a href="{{link articles ../this}}" target="_blank">
+                    <h1 class="titlecont">{{title articles ../this}}</h1>
+                </a>
+
+                <div class="info_container">
+                    <a href="{{link articles ../this}}" target="_blank">
+                        <img class="image" href="{{image articles ../this}}" src="{{image articles ../this}}" alt="{{title articles ../this}}"/>
+                    </a>
+                    <p class="desc">{{desc articles ../this}}</p>
+
+                    <a href="{{link articles ../this}}" target="_blank">
+                        <h3 class="author">{{author articles ../this}} {{date articles ../this}}</h3>
+                    </a>
+                </div>
+            </div>
+        {{/each}}
     {{/each}}
-{{/each}}
-
+</div>
 
 {{>footer}}
 </body>
