@@ -19,7 +19,7 @@ a{
     left: 0;
 
     font-family: 'Arvo',cursive;
-    font-size:4em;
+    font-size:3.5em;
     
     text-align: left;
 
@@ -140,32 +140,21 @@ a{
 
 @media only screen and (max-width: 1024px) {
     /* Tablets and Desktop */
-    .titlecont{font-size: 1.2em}
+    #header{font-size: 3em}
+    .titlecont{font-size: 1.8em}
     .desc{font-size: 1em}
-    .author{font-size: .8em}
+    .art_container{width: 70%}
 }
 
 @media only screen and (max-width: 767px) {
     /* Phones */
-    #header{font-size:1.5em}
-    .titlecont{font-size:.8em}
-    td{display: table-row}
-    .imagecont{width:100%}
-    .image{
-        width: 120%;
-        height: 80%;
-    }
-
+    #header{font-size: 2em}
+    .titlecont{font-size: 1.6em}
+    .desc{font-size: 1em}
+    .art_container{width: 70%}
 }
 
 @media only screen and (max-width: 320px) {
     /* Phones */
-    #header{font-size:1.5em}
-    .titlecont{font-size:.8em}
-    td{display: table-row}
-    table{width:100%}
-    .imagecont{width:100%}
-    .image{object-fit: contain}
-
-
+    #header{font-size: 1.5em}
 }
